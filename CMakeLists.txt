@@ -65,6 +65,7 @@ list(APPEND GAME_SOURCE
      # configs
      Classes/configs/models/LevelConfig.cpp
      Classes/configs/models/CardResConfig.cpp
+     Classes/configs/models/LayoutConfig.cpp
 
      Classes/configs/loaders/LevelConfigLoader.cpp
      Classes/configs/loaders/CardResConfigLoader.cpp
@@ -83,9 +84,9 @@ list(APPEND GAME_HEADER
      Classes/models/UndoModel.h
 
      # configs
-     Classes/configs/models/CardTypes.h
      Classes/configs/models/LevelConfig.h
      Classes/configs/models/CardResConfig.h
+     Classes/configs/models/LayoutConfig.h
 
      Classes/configs/loaders/LevelConfigLoader.h
      Classes/configs/loaders/CardResConfigLoader.h
