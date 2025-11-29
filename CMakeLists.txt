@@ -56,20 +56,46 @@ endif()
 
 # add cross-platforms source files and header files 
 list(APPEND GAME_SOURCE
-     Classes/AppDelegate.cpp
-     Classes/HelloWorldScene.cpp
 
-     # model
+     # models
      Classes/models/CardModel.cpp
      Classes/models/GameModel.cpp
+     Classes/models/UndoModel.h
+
+     # configs
+     Classes/configs/models/LevelConfig.cpp
+     Classes/configs/models/CardResConfig.cpp
+
+     Classes/configs/loaders/LevelConfigLoader.cpp
+     Classes/configs/loaders/CardResConfigLoader.cpp
+
+     # views
+    #  Classes/views/CardView.cpp
+    #  Classes/views/StackView.cpp
+    #  Classes/views/PlayFieldView.cpp
+    #  Classes/views/GameView.cpp
      )
 list(APPEND GAME_HEADER
-     Classes/AppDelegate.h
-     Classes/HelloWorldScene.h
 
-     #model
+     #models
      Classes/models/CardModel.h
      Classes/models/GameModel.h
+     Classes/models/UndoModel.h
+
+     # configs
+     Classes/configs/models/CardTypes.h
+     Classes/configs/models/LevelConfig.h
+     Classes/configs/models/CardResConfig.h
+
+     Classes/configs/loaders/LevelConfigLoader.h
+     Classes/configs/loaders/CardResConfigLoader.h
+
+
+     # views
+    #  Classes/views/CardView.h
+    #  Classes/views/StackView.h
+    #  Classes/views/PlayFieldView.h
+    #  Classes/views/GameView.h
      
      )
 
