@@ -75,6 +75,10 @@ list(APPEND GAME_SOURCE
      Classes/views/StackView.cpp
      Classes/views/PlayFieldView.cpp
      Classes/views/GameView.cpp
+
+     # services
+     Classes/services/CardMatchService.cpp
+     Classes/services/GameModelFromLevelGenerator.cpp
      )
 list(APPEND GAME_HEADER
 
@@ -97,6 +101,11 @@ list(APPEND GAME_HEADER
      Classes/views/StackView.h
      Classes/views/PlayFieldView.h
      Classes/views/GameView.h
+
+     #services
+     Classes/services/CardMatchService.h
+     Classes/services/GameModelFromLevelGenerator.h
+
      
      )
 
