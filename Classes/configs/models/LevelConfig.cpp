@@ -1,37 +1,27 @@
 #include "LevelConfig.h"
 
-const std::vector<CardConfigData>& LevelConfig::getPlayfieldCards() const
-{
-    return _playfieldCards;
+LevelConfig::LevelConfig() {
 }
 
-const std::vector<CardConfigData>& LevelConfig::getStackCards() const
-{
-    return _stackCards;
+void LevelConfig::addPlayFieldCard(const CardConfig& card) {
+    _playFieldCards.push_back(card);
 }
 
-void LevelConfig::setPlayfieldCards(const std::vector<CardConfigData>& cards)
-{
-    _playfieldCards = cards;
+void LevelConfig::addStackCard(const CardConfig& card) {
+    _stackCards.push_back(card);
 }
 
-void LevelConfig::setStackCards(const std::vector<CardConfigData>& cards)
-{
-    _stackCards = cards;
-}
-
-void LevelConfig::addPlayfieldCard(const CardConfigData& cardData)
-{
-    _playfieldCards.push_back(cardData);
-}
-
-void LevelConfig::addStackCard(const CardConfigData& cardData)
-{
-    _stackCards.push_back(cardData);
-}
-
-void LevelConfig::clear()
-{
-    _playfieldCards.clear();
-    _stackCards.clear();
+CardModel::Suit LevelConfig::convertSuit(int suitType) {
+    // CST_CLUBS = 0 -> CLUBS
+    // CST_DIAMONDS = 1 -> DIAMONDS  
+    // CST_HEARTS = 2 -> HEARTS
+    // CST_SPADES = 3 -> SPADES
+    
+    switch (suitType) {
+        case 0: return CardModel::Suit::CLUBS;
+        case 1: return CardModel::Suit::DIAMONDS;
+        case 2: return CardModel::Suit::HEARTS;
+        case 3: return CardModel::Suit::SPADES;
+        default: return CardModel::Suit::CLUBS;
+    }
 }

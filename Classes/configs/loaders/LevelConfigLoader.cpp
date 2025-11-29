@@ -1,158 +1,84 @@
 #include "LevelConfigLoader.h"
 #include "cocos2d.h"
 #include "json/document.h"
-#include "json/stringbuffer.h"
 
 USING_NS_CC;
 
-bool LevelConfigLoader::loadFromFile(const std::string& filePath, LevelConfig& outConfig)
-{
-    // 读取文件内容
-    std::string fullPath = FileUtils::getInstance()->fullPathForFilename(filePath);
-    std::string jsonString = FileUtils::getInstance()->getStringFromFile(fullPath);
-    
-    if (jsonString.empty())
-    {
-        CCLOG("LevelConfigLoader: Failed to read file: %s", filePath.c_str());
-        return false;
-    }
-    
-    return loadFromString(jsonString, outConfig);
+LevelConfig* LevelConfigLoader::loadLevel(int levelId) {
+    std::string filePath = getLevelFilePath(levelId);
+    return loadFromFile(filePath);
 }
 
-bool LevelConfigLoader::loadFromString(const std::string& jsonString, LevelConfig& outConfig)
-{
-    // 解析JSON
-    rapidjson::Document doc;
-    doc.Parse(jsonString.c_str());
+LevelConfig* LevelConfigLoader::loadFromFile(const std::string& filePath) {
+    // 读取文件内容
+    std::string fullPath = FileUtils::getInstance()->fullPathForFilename(filePath);
+    std::string jsonContent = FileUtils::getInstance()->getStringFromFile(fullPath);
     
-    if (doc.HasParseError())
-    {
-        CCLOG("LevelConfigLoader: JSON parse error at offset %zu: %d", 
-              doc.GetErrorOffset(), doc.GetParseError());
-        return false;
+    if (jsonContent.empty()) {
+        CCLOG("Failed to load level config file: %s", filePath.c_str());
+        return nullptr;
     }
     
-    // 清空配置
-    outConfig.clear();
+    return parseJson(jsonContent);
+}
+
+LevelConfig* LevelConfigLoader::parseJson(const std::string& jsonContent) {
+    // 使用RapidJSON解析
+    rapidjson::Document document;
+    document.Parse(jsonContent.c_str());
+    
+    if (document.HasParseError()) {
+        CCLOG("JSON parse error");
+        return nullptr;
+    }
+    
+    LevelConfig* config = new LevelConfig();
     
     // 解析Playfield数组
-    if (doc.HasMember("Playfield") && doc["Playfield"].IsArray())
-    {
-        const rapidjson::Value& playfieldArray = doc["Playfield"];
-        for (rapidjson::SizeType i = 0; i < playfieldArray.Size(); i++)
-        {
-            CardConfigData cardData;
-            if (parseCardData(playfieldArray[i], cardData))
-            {
-                outConfig.addPlayfieldCard(cardData);
-            }
-            else
-            {
-                CCLOG("LevelConfigLoader: Failed to parse Playfield card at index %u", i);
+    if (document.HasMember("Playfield") && document["Playfield"].IsArray()) {
+        const rapidjson::Value& playfield = document["Playfield"];
+        
+        for (rapidjson::SizeType i = 0; i < playfield.Size(); ++i) {
+            const rapidjson::Value& card = playfield[i];
+            
+            if (card.HasMember("CardFace") && card.HasMember("CardSuit") && card.HasMember("Position")) {
+                int face = card["CardFace"].GetInt();
+                int suit = card["CardSuit"].GetInt();
+                
+                const rapidjson::Value& pos = card["Position"];
+                float x = pos["x"].GetFloat();
+                float y = pos["y"].GetFloat();
+                
+                CardConfig cardConfig(face, suit, x, y);
+                config->addPlayFieldCard(cardConfig);
             }
         }
     }
     
     // 解析Stack数组
-    if (doc.HasMember("Stack") && doc["Stack"].IsArray())
-    {
-        const rapidjson::Value& stackArray = doc["Stack"];
-        for (rapidjson::SizeType i = 0; i < stackArray.Size(); i++)
-        {
-            CardConfigData cardData;
-            if (parseCardData(stackArray[i], cardData))
-            {
-                outConfig.addStackCard(cardData);
+    if (document.HasMember("Stack") && document["Stack"].IsArray()) {
+        const rapidjson::Value& stack = document["Stack"];
+        
+        for (rapidjson::SizeType i = 0; i < stack.Size(); ++i) {
+            const rapidjson::Value& card = stack[i];
+            
+            if (card.HasMember("CardFace") && card.HasMember("CardSuit") && card.HasMember("Position")) {
+                int face = card["CardFace"].GetInt();
+                int suit = card["CardSuit"].GetInt();
+                
+                const rapidjson::Value& pos = card["Position"];
+                float x = pos["x"].GetFloat();
+                float y = pos["y"].GetFloat();
+                
+                CardConfig cardConfig(face, suit, x, y);
+                config->addStackCard(cardConfig);
             }
-            else
-            {
-                CCLOG("LevelConfigLoader: Failed to parse Stack card at index %u", i);
-            }
         }
     }
     
-    CCLOG("LevelConfigLoader: Successfully loaded config with %zu playfield cards and %zu stack cards",
-          outConfig.getPlayfieldCards().size(), outConfig.getStackCards().size());
-    
-    return true;
+    return config;
 }
 
-bool LevelConfigLoader::parseCardData(const rapidjson::Value& cardJson, CardConfigData& outCardData)
-{
-    if (!cardJson.IsObject())
-    {
-        return false;
-    }
-    
-    // 解析CardFace
-    if (cardJson.HasMember("CardFace") && cardJson["CardFace"].IsInt())
-    {
-        int faceValue = cardJson["CardFace"].GetInt();
-        outCardData.cardFace = intToCardFace(faceValue);
-    }
-    else
-    {
-        CCLOG("LevelConfigLoader: Missing or invalid CardFace");
-        return false;
-    }
-    
-    // 解析CardSuit
-    if (cardJson.HasMember("CardSuit") && cardJson["CardSuit"].IsInt())
-    {
-        int suitValue = cardJson["CardSuit"].GetInt();
-        outCardData.cardSuit = intToCardSuit(suitValue);
-    }
-    else
-    {
-        CCLOG("LevelConfigLoader: Missing or invalid CardSuit");
-        return false;
-    }
-    
-    // 解析Position
-    if (cardJson.HasMember("Position") && cardJson["Position"].IsObject())
-    {
-        const rapidjson::Value& posJson = cardJson["Position"];
-        if (posJson.HasMember("x") && posJson.HasMember("y") &&
-            posJson["x"].IsNumber() && posJson["y"].IsNumber())
-        {
-            float x = posJson["x"].GetFloat();
-            float y = posJson["y"].GetFloat();
-            outCardData.position = Vec2(x, y);
-        }
-        else
-        {
-            CCLOG("LevelConfigLoader: Invalid Position object");
-            return false;
-        }
-    }
-    else
-    {
-        CCLOG("LevelConfigLoader: Missing or invalid Position");
-        return false;
-    }
-    
-    return true;
-}
-
-CardFaceType LevelConfigLoader::intToCardFace(int faceValue)
-{
-    if (faceValue >= 0 && faceValue < CFT_NUM_CARD_FACE_TYPES)
-    {
-        return static_cast<CardFaceType>(faceValue);
-    }
-    
-    CCLOG("LevelConfigLoader: Invalid CardFace value: %d", faceValue);
-    return CFT_NONE;
-}
-
-CardSuitType LevelConfigLoader::intToCardSuit(int suitValue)
-{
-    if (suitValue >= 0 && suitValue < CST_NUM_CARD_SUIT_TYPES)
-    {
-        return static_cast<CardSuitType>(suitValue);
-    }
-    
-    CCLOG("LevelConfigLoader: Invalid CardSuit value: %d", suitValue);
-    return CST_NONE;
+std::string LevelConfigLoader::getLevelFilePath(int levelId) {
+    return "configs/level_" + std::to_string(levelId) + ".json";
 }

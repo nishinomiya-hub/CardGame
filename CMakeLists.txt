@@ -70,10 +70,10 @@ list(APPEND GAME_SOURCE
      Classes/configs/loaders/CardResConfigLoader.cpp
 
      # views
-    #  Classes/views/CardView.cpp
-    #  Classes/views/StackView.cpp
-    #  Classes/views/PlayFieldView.cpp
-    #  Classes/views/GameView.cpp
+     Classes/views/CardView.cpp
+     Classes/views/StackView.cpp
+     Classes/views/PlayFieldView.cpp
+     Classes/views/GameView.cpp
      )
 list(APPEND GAME_HEADER
 
@@ -92,10 +92,10 @@ list(APPEND GAME_HEADER
 
 
      # views
-    #  Classes/views/CardView.h
-    #  Classes/views/StackView.h
-    #  Classes/views/PlayFieldView.h
-    #  Classes/views/GameView.h
+     Classes/views/CardView.h
+     Classes/views/StackView.h
+     Classes/views/PlayFieldView.h
+     Classes/views/GameView.h
      
      )
 

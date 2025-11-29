@@ -1,83 +1,42 @@
 #pragma once
 
-#include "cocos2d.h"
-#include "CardTypes.h"
 #include <vector>
-
+#include "cocos2d.h"
+#include "models/CardModel.h"
 
 /**
- * @struct CardConfigData
- * @brief 单张卡牌的配置数据
+ * @brief 单张卡牌的配置信息
  */
-struct CardConfigData
-{
-    CardFaceType cardFace;      // 卡牌点数
-    CardSuitType cardSuit;      // 卡牌花色
-    cocos2d::Vec2 position;     // 卡牌位置
+struct CardConfig {
+    int cardFace;           // 卡牌点数 (1-13, 对应A-K)
+    int cardSuit;           // 花色 (0-3, 对应枚举CardSuitType)
+    cocos2d::Vec2 position; // 位置坐标
     
-    CardConfigData()
-        : cardFace(CFT_NONE)
-        , cardSuit(CST_NONE)
-        , position(cocos2d::Vec2::ZERO)
-    {}
-    
-    CardConfigData(CardFaceType face, CardSuitType suit, const cocos2d::Vec2& pos)
-        : cardFace(face)
-        , cardSuit(suit)
-        , position(pos)
-    {}
+    CardConfig() : cardFace(0), cardSuit(0), position(0, 0) {}
+    CardConfig(int face, int suit, float x, float y) 
+        : cardFace(face), cardSuit(suit), position(x, y) {}
 };
 
 /**
- * @class LevelConfig
- * @brief 关卡配置类,包含桌面牌区和手牌区的初始配置
+ * @brief 关卡配置数据模型
+ * @details 定义关卡的初始布局，包括桌面牌区和手牌区的卡牌配置
  */
-class LevelConfig
-{
+class LevelConfig {
 public:
+    LevelConfig();
     
-    /**
-     * @brief 获取桌面牌区配置列表
-     * @return 桌面牌区卡牌配置列表
-     */
-    const std::vector<CardConfigData>& getPlayfieldCards() const;
+    // 添加卡牌配置
+    void addPlayFieldCard(const CardConfig& card);
+    void addStackCard(const CardConfig& card);
     
-    /**
-     * @brief 获取手牌区配置列表
-     * @return 手牌区卡牌配置列表
-     */
-    const std::vector<CardConfigData>& getStackCards() const;
+    // 获取配置数据
+    const std::vector<CardConfig>& getPlayFieldCards() const { return _playFieldCards; }
+    const std::vector<CardConfig>& getStackCards() const { return _stackCards; }
     
-    /**
-     * @brief 设置桌面牌区配置列表
-     * @param cards 桌面牌区卡牌配置列表
-     */
-    void setPlayfieldCards(const std::vector<CardConfigData>& cards);
-    
-    /**
-     * @brief 设置手牌区配置列表
-     * @param cards 手牌区卡牌配置列表
-     */
-    void setStackCards(const std::vector<CardConfigData>& cards);
-    
-    /**
-     * @brief 添加桌面牌区卡牌
-     * @param cardData 卡牌配置数据
-     */
-    void addPlayfieldCard(const CardConfigData& cardData);
-    
-    /**
-     * @brief 添加手牌区卡牌
-     * @param cardData 卡牌配置数据
-     */
-    void addStackCard(const CardConfigData& cardData);
-    
-    /**
-     * @brief 清空所有配置
-     */
-    void clear();
+    // 转换花色枚举
+    static CardModel::Suit convertSuit(int suitType);
     
 private:
-    std::vector<CardConfigData> _playfieldCards;  // 桌面牌区配置列表
-    std::vector<CardConfigData> _stackCards;      // 手牌区配置列表
+    std::vector<CardConfig> _playFieldCards;  // 桌面牌区卡牌配置
+    std::vector<CardConfig> _stackCards;      // 手牌区卡牌配置
 };
