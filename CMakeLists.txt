@@ -82,6 +82,11 @@ list(APPEND GAME_SOURCE
 
      # managers
      Classes/managers/UndoManager.cpp
+
+     # controllers
+     Classes/controllers/StackController.cpp
+     Classes/controllers/PlayFieldController.cpp
+     Classes/controllers/GameController.cpp
      )
 list(APPEND GAME_HEADER
 
@@ -111,6 +116,11 @@ list(APPEND GAME_HEADER
 
      #managers
      Classes/managers/UndoManager.h
+
+     # controllers
+     Classes/controllers/StackController.h
+     Classes/controllers/PlayFieldController.h
+     Classes/controllers/GameController.h
 
      
      )
