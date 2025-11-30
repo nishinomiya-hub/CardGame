@@ -70,21 +70,21 @@ void GameView::createButtons() {
     this->addChild(_undoButton, 10);
 
     // Restart 按钮（可选）
-    _restartButton = ui::Button::create();
-    _restartButton->setTitleText("Restart");
-    _restartButton->setTitleFontSize(24);
-    _restartButton->setContentSize(LayoutConfig::RESTART_BUTTON_SIZE);
-    _restartButton->setPosition(LayoutConfig::getRestartButtonPosition());
-    this->addChild(_restartButton, 10);
+    // _restartButton = ui::Button::create();
+    // _restartButton->setTitleText("Restart");
+    // _restartButton->setTitleFontSize(24);
+    // _restartButton->setContentSize(LayoutConfig::RESTART_BUTTON_SIZE);
+    // _restartButton->setPosition(LayoutConfig::getRestartButtonPosition());
+    // this->addChild(_restartButton, 10);
 }
 
 void GameView::setUndoButtonCallback(const std::function<void()>& callback) {
     _undoCallback = callback;
 }
 
-void GameView::setRestartButtonCallback(const std::function<void()>& callback) {
-    _restartCallback = callback;
-}
+// void GameView::setRestartButtonCallback(const std::function<void()>& callback) {
+//     _restartCallback = callback;
+// }
 
 void GameView::setUndoButtonEnabled(bool enabled) {
     if (_undoButton) {

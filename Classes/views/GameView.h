@@ -51,15 +51,15 @@ public:
      */
     void setUndoButtonEnabled(bool enabled);
 
-    void setRestartButtonCallback(const std::function<void()>& callback);
+    //void setRestartButtonCallback(const std::function<void()>& callback);
     
 private:
     StackView* _stackView;              // 手牌区视图
     PlayFieldView* _playFieldView;      // 桌面牌区视图
     cocos2d::ui::Button* _undoButton;   // 回退按钮
-    cocos2d::ui::Button* _restartButton;
+    //cocos2d::ui::Button* _restartButton;
     std::function<void()> _undoCallback; // 回退回调
-    std::function<void()> _restartCallback;
+    //std::function<void()> _restartCallback;
     
     /**
      * @brief 创建背景

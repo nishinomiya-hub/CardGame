@@ -79,6 +79,9 @@ list(APPEND GAME_SOURCE
      # services
      Classes/services/CardMatchService.cpp
      Classes/services/GameModelFromLevelGenerator.cpp
+
+     # managers
+     Classes/managers/UndoManager.cpp
      )
 list(APPEND GAME_HEADER
 
@@ -105,6 +108,9 @@ list(APPEND GAME_HEADER
      #services
      Classes/services/CardMatchService.h
      Classes/services/GameModelFromLevelGenerator.h
+
+     #managers
+     Classes/managers/UndoManager.h
 
      
      )
