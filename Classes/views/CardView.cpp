@@ -43,9 +43,7 @@ bool CardView::init() {
     _smallNumberTopLeft->setVisible(false);
     this->addChild(_smallNumberTopLeft);
     
-    _smallNumberBottomRight = Sprite::create();
-    _smallNumberBottomRight->setVisible(false);
-    this->addChild(_smallNumberBottomRight);
+
     
     // 创建卡牌背面
     _cardBack = Sprite::create(CardResConfig::getCardBackImage());
@@ -78,19 +76,21 @@ void CardView::showFrontFace(int number, int suit) {
     // 显示底板
     if (_cardBase) {
         _cardBase->setVisible(true);
+        CCLOG("_cardBase potions = (%f , %f)" ,_cardBase->getPosition().x , _cardBase->getPosition().y );
     }
     
     // 转换花色枚举
     CardModel::Suit cardSuit = static_cast<CardModel::Suit>(suit);
     
-    // 设置花色图标
+    // 设置花色图标 
     std::string suitImage = CardResConfig::getSuitImage(cardSuit);
     if (!suitImage.empty() && _suitSprite) {
         _suitSprite->setTexture(suitImage);
         _suitSprite->setVisible(true);
-        // 居中显示
+        // 调整到右上角位置
         Size cardSize = this->getContentSize();
-        _suitSprite->setPosition(Vec2(cardSize.width / 2, cardSize.height / 2));
+        _suitSprite->setPosition(Vec2(cardSize.width / 2 * 0.7 , cardSize.height /2 * 0.7));
+        CCLOG("_suitSprite potions = (%f , %f)" ,_suitSprite->getPosition().x , _suitSprite->getPosition().y );
     }
     
     // 设置大号数字（中央）
@@ -98,26 +98,19 @@ void CardView::showFrontFace(int number, int suit) {
     if (!bigNumberImage.empty() && _bigNumberSprite) {
         _bigNumberSprite->setTexture(bigNumberImage);
         _bigNumberSprite->setVisible(true);
-        Size cardSize = this->getContentSize();
-        _bigNumberSprite->setPosition(Vec2(cardSize.width / 2, cardSize.height * 0.3f));
+        //Size cardSize = this->getContentSize();
+        //_bigNumberSprite->setPosition(Vec2(cardSize.width / 2, cardSize.height / 2));
+        CCLOG("_bigNumberSprite potions = (%f , %f)" ,_bigNumberSprite->getPosition().x , _bigNumberSprite->getPosition().y );
     }
     
-    // 设置左上角小号数字
+    // 设置左上角小号数字 -
     std::string smallNumberImage = CardResConfig::getSmallNumberImage(number, cardSuit);
     if (!smallNumberImage.empty() && _smallNumberTopLeft) {
         _smallNumberTopLeft->setTexture(smallNumberImage);
         _smallNumberTopLeft->setVisible(true);
         Size cardSize = this->getContentSize();
-        _smallNumberTopLeft->setPosition(Vec2(cardSize.width * 0.15f, cardSize.height * 0.85f));
-    }
-    
-    // 设置右下角小号数字（旋转180度）
-    if (!smallNumberImage.empty() && _smallNumberBottomRight) {
-        _smallNumberBottomRight->setTexture(smallNumberImage);
-        _smallNumberBottomRight->setVisible(true);
-        _smallNumberBottomRight->setRotation(180);
-        Size cardSize = this->getContentSize();
-        _smallNumberBottomRight->setPosition(Vec2(cardSize.width * 0.85f, cardSize.height * 0.15f));
+        _smallNumberTopLeft->setPosition(Vec2( -cardSize.width / 2 * 0.7 , cardSize.height / 2 * 0.7) );
+       CCLOG("_smallNumberTopLeft potions = (%f , %f)" ,_smallNumberTopLeft->getPosition().x , _smallNumberTopLeft->getPosition().y );
     }
 }
 
@@ -127,7 +120,6 @@ void CardView::showBackFace() {
     if (_suitSprite) _suitSprite->setVisible(false);
     if (_bigNumberSprite) _bigNumberSprite->setVisible(false);
     if (_smallNumberTopLeft) _smallNumberTopLeft->setVisible(false);
-    if (_smallNumberBottomRight) _smallNumberBottomRight->setVisible(false);
     
     // 显示背面
     if (_cardBack) {

@@ -63,7 +63,6 @@ private:
     cocos2d::Sprite* _suitSprite;                   // 花色图标
     cocos2d::Sprite* _bigNumberSprite;              // 大号数字
     cocos2d::Sprite* _smallNumberTopLeft;           // 左上角小号数字
-    cocos2d::Sprite* _smallNumberBottomRight;       // 右下角小号数字
     cocos2d::Sprite* _cardBack;                     // 卡牌背面
     std::function<void(int)> _touchCallback;        // 触摸回调
     bool _touchEnabled;                             // 是否可触摸

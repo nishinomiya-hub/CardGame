@@ -36,7 +36,17 @@ int WINAPI _tWinMain(HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-    // create the application instance
+
+    // 分配控制台窗口
+    AllocConsole();
+    freopen("CONOUT$", "w", stdout);
+    freopen("CONOUT$", "w", stderr);
+
     AppDelegate app;
-    return Application::getInstance()->run();
+    int result = Application::getInstance()->run();
+
+    // 程序结束后释放控制台
+    FreeConsole();
+
+    return result;
 }
