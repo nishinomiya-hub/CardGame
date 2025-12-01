@@ -160,6 +160,17 @@ void GameController::onUndoComplete(const UndoRecord& record) {
         case UndoRecord::OperationType::PLAY_FIELD_CLICK: {
             // 桌面牌点击的回退：将卡牌从手牌区移回桌面
             CardView* sourceCard = playFieldView->getCardViewById(record.sourceCardId);
+            if( ! sourceCard )
+            {
+                // 如果在PlayFieldView中找不到，可能需要重新创建
+                sourceCard = CardView::create();
+                CardModel* cardModel = _gameModel->getCardById(record.sourceCardId);
+                if (cardModel) {
+                    sourceCard->displayCard(cardModel->getId(), cardModel->getNumber(), 
+                                          static_cast<int>(cardModel->getSuit()), cardModel->isFaceUp());
+                    playFieldView->addCardView(sourceCard, record.sourceOriginalPos);
+                }
+            }
             CardView* targetCard = stackView->getCardViewById(record.targetCardId);
             
             if (sourceCard && targetCard) {

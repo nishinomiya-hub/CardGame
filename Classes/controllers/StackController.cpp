@@ -141,6 +141,8 @@ void StackController::executeCardReplace(int cardId) {
     _stackView->playCardReplaceAnimation(cardId, [this]() {
         CCLOG("StackController: Card replace animation completed");
     });
+
+    _gameController->updateUndoButtonState();
     
     CCLOG("StackController: Card replace executed - new top: %d", cardId);
 }

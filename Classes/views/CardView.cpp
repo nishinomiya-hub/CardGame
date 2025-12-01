@@ -76,7 +76,7 @@ void CardView::showFrontFace(int number, int suit) {
     // 显示底板
     if (_cardBase) {
         _cardBase->setVisible(true);
-        CCLOG("_cardBase potions = (%f , %f)" ,_cardBase->getPosition().x , _cardBase->getPosition().y );
+        //CCLOG("_cardBase potions = (%f , %f)" ,_cardBase->getPosition().x , _cardBase->getPosition().y );
     }
     
     // 转换花色枚举
@@ -90,7 +90,7 @@ void CardView::showFrontFace(int number, int suit) {
         // 调整到右上角位置
         Size cardSize = this->getContentSize();
         _suitSprite->setPosition(Vec2(cardSize.width / 2 * 0.7 , cardSize.height /2 * 0.7));
-        CCLOG("_suitSprite potions = (%f , %f)" ,_suitSprite->getPosition().x , _suitSprite->getPosition().y );
+        //CCLOG("_suitSprite potions = (%f , %f)" ,_suitSprite->getPosition().x , _suitSprite->getPosition().y );
     }
     
     // 设置大号数字（中央）
@@ -100,7 +100,7 @@ void CardView::showFrontFace(int number, int suit) {
         _bigNumberSprite->setVisible(true);
         //Size cardSize = this->getContentSize();
         //_bigNumberSprite->setPosition(Vec2(cardSize.width / 2, cardSize.height / 2));
-        CCLOG("_bigNumberSprite potions = (%f , %f)" ,_bigNumberSprite->getPosition().x , _bigNumberSprite->getPosition().y );
+       // CCLOG("_bigNumberSprite potions = (%f , %f)" ,_bigNumberSprite->getPosition().x , _bigNumberSprite->getPosition().y );
     }
     
     // 设置左上角小号数字 -
@@ -110,7 +110,7 @@ void CardView::showFrontFace(int number, int suit) {
         _smallNumberTopLeft->setVisible(true);
         Size cardSize = this->getContentSize();
         _smallNumberTopLeft->setPosition(Vec2( -cardSize.width / 2 * 0.7 , cardSize.height / 2 * 0.7) );
-       CCLOG("_smallNumberTopLeft potions = (%f , %f)" ,_smallNumberTopLeft->getPosition().x , _smallNumberTopLeft->getPosition().y );
+       //CCLOG("_smallNumberTopLeft potions = (%f , %f)" ,_smallNumberTopLeft->getPosition().x , _smallNumberTopLeft->getPosition().y );
     }
 }
 

@@ -173,6 +173,7 @@ void PlayFieldController::executeCardMove(int cardId) {
         // 4. 检查胜利条件
         _gameController->checkWinCondition();
     });
+    _gameController->updateUndoButtonState();
     
     CCLOG("PlayFieldController: Card move executed - ID: %d", cardId);
 }

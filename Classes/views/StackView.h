@@ -54,7 +54,8 @@ public:
     
 private:
     std::vector<CardView*> _cardViews;  // 所有卡牌视图
-    float _cardOffsetY;                 // 卡牌垂直偏移量
+    float _cardOffsetX;                 // 卡牌偏移量
+    float _topCardGap;                  // 顶牌和手牌堆的间距
     cocos2d::Vec2 _stackBasePos;        // 手牌堆基准位置
     
     /**

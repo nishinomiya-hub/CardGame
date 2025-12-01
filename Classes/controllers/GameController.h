@@ -62,6 +62,11 @@ public:
      * @return 回退管理器指针
      */
     UndoManager* getUndoManager() { return _undoManager; }
+
+    /**
+     * @brief 更新回退按钮状态
+     */
+    void updateUndoButtonState();
     
 private:
     GameModel* _gameModel;                      // 游戏数据模型
@@ -101,10 +106,6 @@ private:
      */
     void onUndoComplete(const UndoRecord& record);
     
-    /**
-     * @brief 更新回退按钮状态
-     */
-    void updateUndoButtonState();
     
     /**
      * @brief 显示胜利提示
