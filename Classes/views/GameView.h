@@ -4,6 +4,8 @@
 #include "StackView.h"
 #include "PlayFieldView.h"
 
+#include "ui/CocosGUI.h"
+
 /**
  * @brief 游戏主视图
  * @details 整合所有UI元素，管理游戏界面

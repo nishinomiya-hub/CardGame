@@ -16,23 +16,23 @@ void CardResConfig::init() {
     const char* numbers[] = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
     
     for (int i = 0; i < 13; ++i) {
-        int number = i + 1;
+        int number = i ;
         
         // 黑色大号数字
         std::string keyBlackBig = generateNumberKey(number, false, true);
-        _numberImageMap[keyBlackBig] = "cards/numbers/big_black_" + std::string(numbers[i]) + ".png";
+        _numberImageMap[keyBlackBig] = "cards/number/big_black_" + std::string(numbers[i]) + ".png";
         
         // 黑色小号数字
         std::string keyBlackSmall = generateNumberKey(number, false, false);
-        _numberImageMap[keyBlackSmall] = "cards/numbers/small_black_" + std::string(numbers[i]) + ".png";
+        _numberImageMap[keyBlackSmall] = "cards/number/small_black_" + std::string(numbers[i]) + ".png";
         
         // 红色大号数字
         std::string keyRedBig = generateNumberKey(number, true, true);
-        _numberImageMap[keyRedBig] = "cards/numbers/big_red_" + std::string(numbers[i]) + ".png";
+        _numberImageMap[keyRedBig] = "cards/number/big_red_" + std::string(numbers[i]) + ".png";
         
         // 红色小号数字
         std::string keyRedSmall = generateNumberKey(number, true, false);
-        _numberImageMap[keyRedSmall] = "cards/numbers/small_red_" + std::string(numbers[i]) + ".png";
+        _numberImageMap[keyRedSmall] = "cards/number/small_red_" + std::string(numbers[i]) + ".png";
     }
 }
 

@@ -54,14 +54,14 @@ const float LayoutConfig::BUTTON_SPACING = 20.0f;
 // ==============================
 
 cocos2d::Vec2 LayoutConfig::getMainFieldPosition() {
-    float x = DESIGN_RESOLUTION.width / 2;
-    float y = STACK_FIELD_SIZE.height + MAIN_FIELD_SIZE.height / 2;
+    float x = 0 ;
+    float y = STACK_FIELD_SIZE.height ;
     return cocos2d::Vec2(x, y);
 }
 
 cocos2d::Vec2 LayoutConfig::getStackFieldPosition() {
-    float x = DESIGN_RESOLUTION.width / 2;
-    float y = STACK_FIELD_SIZE.height / 2;
+    float x = 0 ;
+    float y = 0 ;
     return cocos2d::Vec2(x, y);
 }
 
@@ -95,8 +95,8 @@ cocos2d::Vec2 LayoutConfig::getCardPositionInPlayField(int row, int column, int 
 }
 
 cocos2d::Vec2 LayoutConfig::getUndoButtonPosition() {
-    return cocos2d::Vec2(DESIGN_RESOLUTION.width - UNDO_BUTTON_SIZE.width / 2 - SCREEN_SAFE_MARGIN,
-                DESIGN_RESOLUTION.height - UNDO_BUTTON_SIZE.height / 2 - SCREEN_SAFE_MARGIN);
+    return cocos2d::Vec2(DESIGN_RESOLUTION.width - UNDO_BUTTON_SIZE.width  ,
+                STACK_FIELD_SIZE.height / 2 - UNDO_BUTTON_SIZE.height / 2 );
 }
 
 cocos2d::Vec2 LayoutConfig::getRestartButtonPosition() {

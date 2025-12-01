@@ -87,6 +87,10 @@ list(APPEND GAME_SOURCE
      Classes/controllers/StackController.cpp
      Classes/controllers/PlayFieldController.cpp
      Classes/controllers/GameController.cpp
+
+     # utils
+     Classes/utils/GameScene.cpp
+     Classes/utils/AppDelegate.cpp
      )
 list(APPEND GAME_HEADER
 
@@ -122,7 +126,9 @@ list(APPEND GAME_HEADER
      Classes/controllers/PlayFieldController.h
      Classes/controllers/GameController.h
 
-     
+     # utils
+     Classes/utils/GameScene.h
+     Classes/utils/AppDelegate.h
      )
 
 if(ANDROID)

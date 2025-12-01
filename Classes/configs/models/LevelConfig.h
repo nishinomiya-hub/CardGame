@@ -8,7 +8,7 @@
  * @brief 单张卡牌的配置信息
  */
 struct CardConfig {
-    int cardFace;           // 卡牌点数 (1-13, 对应A-K)
+    int cardFace;           // 卡牌点数 (0-12, 对应A-K)
     int cardSuit;           // 花色 (0-3, 对应枚举CardSuitType)
     cocos2d::Vec2 position; // 位置坐标
     
